@@ -1,11 +1,13 @@
-/* global define */
+/* global define, window */
 define(function () {
     'use strict';
 
     var self   = {};
     var events = {};
 
-    self.publish = function (eventName, data) {
+    self.publish = function (eventName, args) {
+        //window.alert('foo');
+
         if ( ! events[eventName]) {
             return false;
         }
@@ -13,7 +15,7 @@ define(function () {
         var subscribers = events[eventName];
         var length      = subscribers.length || 0;
         for (var i = 0 ; i < length ; i++) {
-            subscribers[i](data);
+            subscribers[i](args);
         }
 
         return true;

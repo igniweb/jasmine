@@ -1,4 +1,4 @@
-/* global define, describe, it, except, beforeEach, spyOn */
+/* global define, describe, it, except, beforeEach, spyOn, window */
 define(['numbers', 'events'], function (numbers, events) {
     'use strict';
 
@@ -52,6 +52,9 @@ define(['numbers', 'events'], function (numbers, events) {
             it('should publish an added event showing the operands passed to the method and the result', function () {
                 // Listen
                 spyOn(events, 'publish');
+                //spyOn(events, 'publish').and.callThrough();
+                //spyOn(events, 'publish').and.returnValue(false);
+                //spyOn(events, 'publish').and.callFake(function (eventName, args) { window.alert(eventName); });
 
                 // Act
                 numbers.add(this.numberInput1, this.numberInput2);
