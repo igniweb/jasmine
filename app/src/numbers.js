@@ -9,7 +9,13 @@ define(function () {
         var total    = 0;
 
         operands.forEach(function (value) {
-            total += parseInt(value);
+            if (typeof value === 'string') {
+                value = parseInt(value, 10) || 0;
+            }
+
+            if (typeof value === 'number') {
+                total += value;
+            }
         });
 
         return total;
