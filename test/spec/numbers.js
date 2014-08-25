@@ -1,5 +1,5 @@
-/* global define, describe, it, except, beforeEach */
-define(['numbers'], function (numbers) {
+/* global define, describe, it, except, beforeEach, spyOn */
+define(['numbers', 'events'], function (numbers, events) {
     'use strict';
 
     describe('The numbers module', function () {
@@ -47,6 +47,18 @@ define(['numbers'], function (numbers) {
                 // And re-assert
                 expect(output).toEqual(1);
                 expect(output).not.toEqual({});
+            });
+
+            it('should publish an added event showing the operands passed to the method and the result', function () {
+                // Listen
+                spyOn(events, 'publish');
+
+                // Act
+                numbers.add(this.numberInput1, this.numberInput2);
+
+                // Assert
+                expect(events.publish).toHaveBeenCalled();
+                expect(events.publish).toHaveBeenCalledWith('added', { operands: [this.numberInput1, this.numberInput2], result: 3 });
             });
         });
     });
